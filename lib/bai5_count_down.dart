@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:d12m12y2025/app_theme.dart';
 
 class MyCountDownApp extends StatefulWidget {
   const MyCountDownApp({super.key});
@@ -118,12 +119,8 @@ class _MyCountDownAppState extends State<MyCountDownApp> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color(0xFFF5F5F5),
-        ),
+      body: AppBackground(
+        useGradient: false,
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),

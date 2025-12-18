@@ -14,6 +14,7 @@ import 'package:d12m12y2025/bai5_count_number.dart';
 import 'package:d12m12y2025/form_register.dart';
 import 'package:d12m12y2025/formlogin.dart';
 import 'package:d12m12y2025/guiphanhoi.dart';
+import 'package:d12m12y2025/app_theme.dart'; // Import theme mới
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,48 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter homework',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-          brightness: Brightness.light,
-        ),
-        scaffoldBackgroundColor: Colors.grey[50],
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-        ),
-        cardTheme: CardThemeData(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.deepPurple,
-            foregroundColor: Colors.white,
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.grey[100],
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.deepPurple, width: 2),
-          ),
-        ),
-      ),
+      theme: AppTheme.lightTheme, // Sử dụng theme mới
       home: const HomeScreen(),
       routes: {
         '/home': (context) => const HomeScreen(),
@@ -127,10 +87,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false, // Ngăn nút back vật lý thoát app khi ở Home
+      canPop: false, // Ngăn nút back vật lý thoát app khi ềEHome
       onPopInvoked: (didPop) async {
         if (!didPop) {
-          // Hiển thị dialog xác nhận khi muốn thoát app
+          // Hiển thềEdialog xác nhận khi muốn thoát app
           final shouldExit = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
@@ -167,7 +127,13 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 children: [
             const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.deepPurple),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [AppColors.gradientStart, AppColors.gradientEnd],
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -187,7 +153,7 @@ class HomeScreen extends StatelessWidget {
             ),
             // Bài 1
             const ListTile(
-              leading: Icon(Icons.looks_one, color: Colors.deepPurple),
+              leading: Icon(Icons.looks_one, color: AppColors.primary),
               title: Text(
                 'BÀI 1',
                 style: TextStyle(
@@ -207,7 +173,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 2
             const ListTile(
-              leading: Icon(Icons.looks_two, color: Colors.deepPurple),
+              leading: Icon(Icons.looks_two, color: AppColors.primary),
               title: Text(
                 'BÀI 2',
                 style: TextStyle(
@@ -227,7 +193,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 3
             const ListTile(
-              leading: Icon(Icons.looks_3, color: Colors.deepPurple),
+              leading: Icon(Icons.looks_3, color: AppColors.primary),
               title: Text(
                 'BÀI 3',
                 style: TextStyle(
@@ -254,7 +220,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 4
             const ListTile(
-              leading: Icon(Icons.looks_4, color: Colors.deepPurple),
+              leading: Icon(Icons.looks_4, color: AppColors.primary),
               title: Text(
                 'BÀI 4',
                 style: TextStyle(
@@ -274,7 +240,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 5
             const ListTile(
-              leading: Icon(Icons.looks_5, color: Colors.deepPurple),
+              leading: Icon(Icons.looks_5, color: AppColors.primary),
               title: Text(
                 'BÀI 5',
                 style: TextStyle(
@@ -300,7 +266,7 @@ class HomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.numbers),
-              title: const Text('Bài 5: Đếm số'),
+              title: const Text('Bài 5: Đếm sềE),
               onTap: () {
                 Navigator.pushNamed(context, '/bai5_count');
               },
@@ -308,9 +274,9 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 6
             const ListTile(
-              leading: Icon(Icons.looks_6, color: Colors.deepPurple),
+              leading: Icon(Icons.looks_6, color: AppColors.primary),
               title: Text(
-                'BÀI 6: FORM ĐĂNG NHẬP & ĐĂNG KÝ',
+                'BÀI 6: FORM ĐāEG NHẬP & ĐāEG KÁE,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
@@ -335,7 +301,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 7
             const ListTile(
-              leading: Icon(Icons.calculate_outlined, color: Colors.deepPurple),
+              leading: Icon(Icons.calculate_outlined, color: AppColors.primary),
               title: Text(
                 'BÀI 7: BMI & FEEDBACK',
                 style: TextStyle(
@@ -364,7 +330,7 @@ class HomeScreen extends StatelessWidget {
             const ListTile(
               leading: Icon(
                 Icons.shopping_bag_outlined,
-                color: Colors.deepPurple,
+                color: AppColors.primary,
               ),
               title: Text(
                 'BÀI 8: FAKE API PRODUCT',
@@ -385,7 +351,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 9
             const ListTile(
-              leading: Icon(Icons.newspaper_outlined, color: Colors.deepPurple),
+              leading: Icon(Icons.newspaper_outlined, color: AppColors.primary),
               title: Text(
                 'BÀI 9: NEWS API',
                 style: TextStyle(
@@ -405,9 +371,9 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // Bài 10
             const ListTile(
-              leading: Icon(Icons.login, color: Colors.deepPurple),
+              leading: Icon(Icons.login, color: AppColors.primary),
               title: Text(
-                'BÀI 10: LOGIN CÓ DÙNG API',
+                'BÀI 10: LOGIN CÁEDÙNG API',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
@@ -425,7 +391,7 @@ class HomeScreen extends StatelessWidget {
             const Divider(),
             // GitHub Link
             ListTile(
-              leading: const Icon(Icons.code, color: Colors.deepPurple),
+              leading: const Icon(Icons.code, color: AppColors.primary),
               title: const Text('GitHub Repository'),
               subtitle: const Text(
                 'Xem mã nguồn trên GitHub',
@@ -437,10 +403,10 @@ class HomeScreen extends StatelessWidget {
                   if (await canLaunchUrl(url)) {
                     await launchUrl(
                       url,
-                      mode: LaunchMode.platformDefault, // Tự động chọn cách mở phù hợp
+                      mode: LaunchMode.platformDefault, // Tự động chọn cách mềEphù hợp
                     );
                   } else {
-                    // Thử mở bằng external browser nếu platformDefault không hoạt động
+                    // Thử mềEbằng external browser nếu platformDefault không hoạt động
                     await launchUrl(
                       url,
                       mode: LaunchMode.externalApplication,
@@ -450,12 +416,12 @@ class HomeScreen extends StatelessWidget {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Không thể mở link GitHub: $e'),
+                        content: Text('Không thềEmềElink GitHub: $e'),
                         backgroundColor: Colors.red,
                         action: SnackBarAction(
                           label: 'Sao chép link',
                           onPressed: () {
-                            // Có thể thêm chức năng copy link nếu cần
+                            // Có thềEthêm chức năng copy link nếu cần
                           },
                         ),
                       ),
@@ -467,33 +433,62 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
               ),
-            // Thêm khoảng trống để tránh thanh điều hướng ảo (80-100px)
-            // Sử dụng MediaQuery để lấy chiều cao thực tế của bottom padding
+            // Thêm khoảng trống đềEtránh thanh điều hướng ảo (80-100px)
+            // Sử dụng MediaQuery đềElấy chiều cao thực tế của bottom padding
             SizedBox(
               height: MediaQuery.of(context).padding.bottom + 80,
             ),
           ],
         ),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.home, size: 80, color: Colors.deepPurple),
-            SizedBox(height: 20),
-            Text(
-              'Chào mừng đến với ứng dụng!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Mở menu để điều hướng đến các bài tập',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-          ],
+      body: AppBackground(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.home,
+                  size: 80,
+                  color: AppColors.primary,
+                ),
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Chào mừng đến với ứng dụng!',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(0, 2),
+                      blurRadius: 4,
+                      color: Colors.black26,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Text(
+                'MềEmenu đềEđiều hướng đến các bài tập',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       ),
     );
   }
 }
+

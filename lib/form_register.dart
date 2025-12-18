@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:d12m12y2025/app_theme.dart';
 
 class MyRegisterForm extends StatefulWidget {
   const MyRegisterForm({super.key});
@@ -82,15 +83,14 @@ class MyRegisterFormState extends State<MyRegisterForm> {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-      backgroundColor: primaryColor,
       appBar: AppBar(
         title: const Text(
           "TẠO TÀI KHOẢN",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-
-      body: Center(
+      body: AppBackground(
+        child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -276,6 +276,7 @@ class MyRegisterFormState extends State<MyRegisterForm> {
             ],
           ),
         ),
+      ),
       ),
     );
   }
