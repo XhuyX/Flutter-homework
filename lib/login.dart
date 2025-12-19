@@ -1,7 +1,6 @@
 import 'package:d12m12y2025/Model/User.dart';
 import 'package:d12m12y2025/auth.dart';
 import 'package:d12m12y2025/profile.dart';
-import 'package:d12m12y2025/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class MyLoginFormPage extends StatefulWidget {
@@ -52,12 +51,10 @@ class _MyLoginFormPageState extends State<MyLoginFormPage> {
   }
 
   Widget LoginBody() {
-    return AppBackground(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
           TextField(
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.person),
@@ -152,7 +149,6 @@ class _MyLoginFormPageState extends State<MyLoginFormPage> {
             icon: const Icon(Icons.login),
           ),
         ],
-      ),
       ),
     );
   }

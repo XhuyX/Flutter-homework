@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:d12m12y2025/app_theme.dart';
 
 class MyRegisterForm extends StatefulWidget {
   const MyRegisterForm({super.key});
@@ -83,14 +82,15 @@ class MyRegisterFormState extends State<MyRegisterForm> {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
+      // Dùng background từ theme thống nhất
       appBar: AppBar(
         title: const Text(
           "TẠO TÀI KHOẢN",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: AppBackground(
-        child: Center(
+
+      body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -99,10 +99,14 @@ class MyRegisterFormState extends State<MyRegisterForm> {
             children: [
               // Icon lớn phía trên Form
               const SizedBox(height: 10),
-              const Text(
+              Text(
                 "Đăng ký để tiếp tục",
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const SizedBox(height: 40),
 
@@ -254,18 +258,20 @@ class MyRegisterFormState extends State<MyRegisterForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Đã có tài khoản? ",
-                    style: TextStyle(color: Colors.white70),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Logic chuyển sang trang đăng nhập
+                      Navigator.pushNamed(context, '/formlogin');
                     },
-                    child: const Text(
+                    child: Text(
                       "Đăng nhập ngay",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                       ),
@@ -276,7 +282,6 @@ class MyRegisterFormState extends State<MyRegisterForm> {
             ],
           ),
         ),
-      ),
       ),
     );
   }

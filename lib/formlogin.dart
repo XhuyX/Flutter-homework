@@ -22,36 +22,29 @@ class MyLoginFormState extends State<MyLoginForm> {
           },
         ),
       ),
-      body: Stack(
-        children: [
-          // 1. BACKGROUND
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-
-          // 2. NỘI DUNG CHÍNH (Center + ScrollView)
-          Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 5),
-                  const Text(
-                    "Đăng nhập để tiếp tục",
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                  const SizedBox(height: 40),
-
-                  // 3. FORM CARD
-                  _buildLoginForm(),
-                ],
+      // Dùng background từ theme thống nhất
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 5),
+              Text(
+                "Đăng nhập để tiếp tục",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
+              const SizedBox(height: 40),
+
+              // 3. FORM CARD
+              _buildLoginForm(),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

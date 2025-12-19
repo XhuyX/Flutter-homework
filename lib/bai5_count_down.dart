@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:d12m12y2025/app_theme.dart';
 
 class MyCountDownApp extends StatefulWidget {
   const MyCountDownApp({super.key});
@@ -119,188 +118,190 @@ class _MyCountDownAppState extends State<MyCountDownApp> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: AppBackground(
-        useGradient: false,
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
 
-                // === Nhập liệu ===
-                const Text(
-                  "Nhập số giây cần đếm ngược:",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.blue,
+              // === Nhập liệu ===
+              const Text(
+                "Nhập số giây cần đếm ngược:",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue,
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _secondsController,
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.center,
+                enabled: !_isRunning && _remainingSeconds == 0,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+                decoration: InputDecoration(
+                  hintText: "Nhập giây (ví dụ: 60)",
+                  filled: true,
+                  fillColor: Colors.white,
+                  prefixIcon: const Icon(Icons.timer, color: Colors.blue),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-                const SizedBox(height: 10),
-                TextField(
-                  controller: _secondsController,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  enabled: !_isRunning && _remainingSeconds == 0,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+              ),
+
+              const SizedBox(height: 40),
+
+              // === Hiển thị đồng hồ đếm ngược ===
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 220,
+                    height: 220,
+                    child: CircularProgressIndicator(
+                      value: _progressValue,
+                      strokeWidth: 15,
+                      backgroundColor: Colors.grey.shade200,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        _progressValue < 0.1 ? Colors.red : Colors.blue,
+                      ),
+                    ),
                   ),
-                  decoration: InputDecoration(
-                    hintText: "Nhập giây (ví dụ: 60)",
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.timer, color: Colors.blue),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 40),
-
-                // === Hiển thị đồng hồ đếm ngược ===
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 220,
-                      height: 220,
-                      child: CircularProgressIndicator(
-                        value: _progressValue,
-                        strokeWidth: 15,
-                        backgroundColor: Colors.grey.shade200,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          _progressValue < 0.1 ? Colors.red : Colors.blue,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 170,
-                      height: 170,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(0.2),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          _timerString,
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.w900,
-                            color: _progressValue < 0.1
-                                ? Colors.red
-                                : Colors.blue.shade800,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 30),
-
-                if (_message != null)
                   Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
+                    width: 170,
+                    height: 170,
                     decoration: BoxDecoration(
-                      color: Colors.orange.shade50,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.orange.shade200),
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.2),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      _message!,
-                      style: TextStyle(
-                        color: Colors.orange.shade800,
-                        fontWeight: FontWeight.bold,
+                    child: Center(
+                      child: Text(
+                        _timerString,
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.w900,
+                          color: _progressValue < 0.1
+                              ? Colors.red
+                              : Colors.blue.shade800,
+                        ),
                       ),
                     ),
                   ),
+                ],
+              ),
 
-                // === Nút bấm ===
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: (_isRunning || _remainingSeconds > 0)
-                            ? null
-                            : _startCountdown,
-                        icon: const Icon(Icons.play_arrow, color: Colors.white),
-                        label: const Text(
-                          "Bắt đầu",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                      ),
+              const SizedBox(height: 30),
+
+              if (_message != null)
+                Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.orange.shade200),
+                  ),
+                  child: Text(
+                    _message!,
+                    style: TextStyle(
+                      color: Colors.orange.shade800,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(width: 15),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.orange.withOpacity(0.4),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        onPressed: _remainingSeconds > 0 ? _togglePause : null,
-                        icon: Icon(
-                          _isRunning ? Icons.pause : Icons.play_arrow_outlined,
-                          color: Colors.white,
-                        ),
-                        iconSize: 30,
-                      ),
-                    ),
-
-                    const SizedBox(width: 15),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        onPressed: _resetCountdown,
-                        icon: const Icon(Icons.refresh, color: Colors.white),
-                        iconSize: 30,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ],
-            ),
+
+              // === Nút bấm ===
+              Builder(
+                builder: (context) {
+                  final primaryColor = Theme.of(context).colorScheme.primary;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: (_isRunning || _remainingSeconds > 0)
+                              ? null
+                              : _startCountdown,
+                          icon: const Icon(Icons.play_arrow, color: Colors.white),
+                          label: const Text(
+                            "Bắt đầu",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+
+                      Container(
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: primaryColor.withOpacity(0.4),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: IconButton(
+                          onPressed: _remainingSeconds > 0 ? _togglePause : null,
+                          icon: Icon(
+                            _isRunning ? Icons.pause : Icons.play_arrow_outlined,
+                            color: Colors.white,
+                          ),
+                          iconSize: 30,
+                        ),
+                      ),
+
+                      const SizedBox(width: 15),
+
+                      Container(
+                        decoration: BoxDecoration(
+                          color: primaryColor.withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: primaryColor.withOpacity(0.3),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: IconButton(
+                          onPressed: _resetCountdown,
+                          icon: const Icon(Icons.refresh, color: Colors.white),
+                          iconSize: 30,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

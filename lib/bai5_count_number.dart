@@ -28,20 +28,14 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        // Nền màu theme
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildCounterDisplay(),
-              const SizedBox(height: 50), // Khoảng cách giữa số và nút
-              _buildButtonControls(),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildCounterDisplay(),
+            const SizedBox(height: 50), // Khoảng cách giữa số và nút
+            _buildButtonControls(),
+          ],
         ),
       ),
     );
@@ -52,12 +46,15 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2), // Màu trắng mờ
+        color: Colors.white, // Màu trắng để nổi bật trên nền xám
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.white.withOpacity(0.5), width: 1.5),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+          width: 2,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withOpacity(0.1),
             blurRadius: 15,
             offset: const Offset(0, 10),
           ),
@@ -65,9 +62,12 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             "Giá trị hiện tại",
-            style: TextStyle(color: Colors.white70, fontSize: 18),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              fontSize: 18,
+            ),
           ),
           const SizedBox(height: 10),
           // Hiệu ứng animation khi số thay đổi
@@ -79,10 +79,10 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
             child: Text(
               '$current_value',
               key: ValueKey<int>(current_value), // Key để nhận biết sự thay đổi
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 80,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ),
@@ -93,6 +93,7 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
 
   // Widget chứa các nút bấm
   Widget _buildButtonControls() {
+    final primaryColor = Theme.of(context).colorScheme.primary;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -100,7 +101,7 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
         _buildCustomButton(
           label: "Giảm",
           icon: Icons.remove,
-          color: Colors.orangeAccent,
+          color: primaryColor,
           onPressed: () {
             setState(() {
               current_value--;
@@ -119,7 +120,7 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(20),
-            backgroundColor: Colors.white24, // Màu tối hơn
+            backgroundColor: primaryColor.withOpacity(0.7),
             foregroundColor: Colors.white,
           ),
           child: const Icon(Icons.refresh, size: 30),
@@ -131,7 +132,7 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
         _buildCustomButton(
           label: "Tăng",
           icon: Icons.add,
-          color: Colors.greenAccent.shade400,
+          color: primaryColor,
           onPressed: () {
             setState(() {
               current_value++;
@@ -151,11 +152,11 @@ class _MyCountNumberAppState extends State<MyCountNumberApp> {
   }) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, color: Colors.black87),
+      icon: Icon(icon, color: Colors.white),
       label: Text(
         label,
         style: const TextStyle(
-          color: Colors.black87,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),

@@ -100,14 +100,15 @@ class _MyBMICalculatorState extends State<MyBMICalculator> {
 
               const SizedBox(height: 40),
 
-              // 4. NÚT BẤM (Màu đơn sắc nổi bật)
+              // 4. NÚT BẤM (Dùng màu từ theme thống nhất)
               SizedBox(
                 width: double.infinity,
                 height: 55,
                 child: ElevatedButton(
                   onPressed: calculateBMI,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.error,
+                  style: ElevatedButton.styleFrom(
+                    // Dùng màu primary từ theme thống nhất
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
